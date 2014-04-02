@@ -44,18 +44,10 @@ function createRequest(url, callback) {
     request(url, function (error, response, body) {
 
         if (response.statusCode == 200) {
-            try {
-                callback(error, JSON.parse(body));
-            } catch (error) {
-                callback(error, body);
-            }
+            body = body.replace(/[\u0000-\u001f]/g, '');
+            callback(error, JSON.parse(body));
         } else {
-            try{
-                callback(error, JSON.parse(body));
-            }
-            catch (error){
-                callback(error,body)
-            }
+            callback(error, body);
         }
     });
 }
