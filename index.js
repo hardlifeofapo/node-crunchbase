@@ -42,13 +42,18 @@ function getPosts(entityType, name, firstName, lastName, callback) {
 
 function createRequest(url, callback) {
     request(url, function (error, response, body) {
-
+      // Check for existence of response's statusCode
+      if( "undefined" != typeof( esponse.statusCode ) ){
         if (response.statusCode == 200) {
-            body = body.replace(/[\u0000-\u001f]/g, '');
-            callback(error, JSON.parse(body));
+          // Replace control chars
+          body = body.replace(/[\u0000-\u001f]/g, '');
+          callback(error, JSON.parse(body));
         } else {
-            callback(error, body);
+          callback(error, body);
         }
+      }else{
+        callback(error, body);
+      }
     });
 }
 
