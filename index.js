@@ -43,7 +43,7 @@ function getPosts(entityType, name, firstName, lastName, callback) {
 function createRequest(url, callback) {
     request(url, function (error, response, body) {
       // Check for existence of response's statusCode
-      if( "undefined" != typeof( esponse.statusCode ) ){
+      if( "undefined" != typeof( response.statusCode ) ){
         if (response.statusCode == 200) {
           // Replace control chars
           body = body.replace(/[\u0000-\u001f]/g, '');
